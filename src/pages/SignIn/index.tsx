@@ -35,8 +35,8 @@ import {
 } from './styles'
 
 interface SignInFormData {
-  email: string
-  password: string
+  cpf: string
+  nascimento: string
 }
 
 const SignIn: React.FC = () => {
@@ -53,10 +53,8 @@ const SignIn: React.FC = () => {
         formRef.current?.setErrors({})
 
         const schema = Yup.object().shape({
-          email: Yup.string()
-            .required('E-mail obrigatório')
-            .email('Digite um e-mail válido'),
-          password: Yup.string().required('Senha obrigatória'),
+          cpf: Yup.string().required('E-mail obrigatório'),
+          nascimento: Yup.string().required('Senha obrigatória'),
         })
 
         await schema.validate(data, {
@@ -64,8 +62,8 @@ const SignIn: React.FC = () => {
         })
 
         await signIn({
-          email: data.email,
-          password: data.password,
+          cpf: data.cpf,
+          nascimento: data.nascimento,
         })
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -102,7 +100,7 @@ const SignIn: React.FC = () => {
             <Image source={logo} />
 
             <View>
-              <Title>Faça seu logon</Title>
+              <Title>Faça seu login</Title>
             </View>
 
             <Form ref={formRef} onSubmit={handleSignIn}>
@@ -110,10 +108,11 @@ const SignIn: React.FC = () => {
                 autoCorrect={false}
                 autoCapitalize="none"
                 keyboardType="email-address"
-                name="email"
-                icon="mail"
-                placeholder="E-mail"
+                name="cpf"
+                icon="more-horizontal"
+                placeholder="CPF"
                 returnKeyType="next"
+                defaultValue="93178468234"
                 onSubmitEditing={() => {
                   passwordInputRef.current?.focus()
                 }}
@@ -121,11 +120,12 @@ const SignIn: React.FC = () => {
 
               <Input
                 ref={passwordInputRef}
-                name="password"
-                icon="lock"
-                placeholder="Senha"
+                name="nascimento"
+                icon="calendar"
+                placeholder="Data de Nascimento"
                 secureTextEntry
                 returnKeyType="send"
+                defaultValue="08071988"
                 onSubmitEditing={() => {
                   formRef.current?.submitForm()
                 }}
@@ -149,10 +149,14 @@ const SignIn: React.FC = () => {
 
       <CreateAccountButton onPress={() => navigation.navigate('SignUp')}>
         <Icon name="log-in" size={20} color="#ff9000" />
-        <CreateAccountButtonText>Criar uma conta</CreateAccountButtonText>
+        <CreateAccountButtonText>Comprar Curso</CreateAccountButtonText>
       </CreateAccountButton>
     </>
   )
 }
 
 export default SignIn
+
+//08071988
+
+//93178468234

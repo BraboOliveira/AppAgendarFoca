@@ -51,7 +51,7 @@ interface AvailabilityItem {
 }
 
 const CreateAppointment: React.FC = () => {
-  const { user } = useAuth()
+  const { Nome } = useAuth()
   const route = useRoute()
   const routeParams = route.params as RouteParams
   const { goBack, navigate } = useNavigation()
@@ -171,7 +171,7 @@ const CreateAppointment: React.FC = () => {
         <UserAvatar
           source={{
             uri:
-              user.avatar_url ||
+              Nome.avatar_url ||
               'https://api.adorable.io/avatars/56/abott@adorable.png',
           }}
         />
