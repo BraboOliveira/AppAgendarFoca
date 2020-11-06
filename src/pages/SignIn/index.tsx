@@ -112,7 +112,7 @@ const SignIn: React.FC = () => {
                 icon="more-horizontal"
                 placeholder="CPF"
                 returnKeyType="next"
-                defaultValue="93178468234"
+                defaultValue=""
                 onSubmitEditing={() => {
                   passwordInputRef.current?.focus()
                 }}
@@ -125,7 +125,7 @@ const SignIn: React.FC = () => {
                 placeholder="Data de Nascimento"
                 secureTextEntry
                 returnKeyType="send"
-                defaultValue="08071988"
+                defaultValue=""
                 onSubmitEditing={() => {
                   formRef.current?.submitForm()
                 }}
