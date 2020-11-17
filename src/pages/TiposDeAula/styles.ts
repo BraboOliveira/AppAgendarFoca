@@ -7,6 +7,7 @@ import { RectButton } from 'react-native-gesture-handler'
 export const Container = styled.View`
   flex: 1;
   background: ${props => props.theme.colors.background};
+  margin-bottom: 15px;
   /* justify-content: center;  */
 `
 export const Header = styled.View`

@@ -51,11 +51,11 @@ interface AvailabilityItem {
 }
 
 const CreateAppointment: React.FC = () => {
-  const { Nome } = useAuth()
+  const { Nome , Cpf, Token} = useAuth()
   const route = useRoute()
   const routeParams = route.params as RouteParams
   const { goBack, navigate } = useNavigation()
-
+  const [aulaDisp, setAuladisp] = useState('')
   const [availability, setAvailability] = useState<AvailabilityItem[]>([])
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [selectedHour, setSelectedHour] = useState(0)
@@ -66,8 +66,16 @@ const CreateAppointment: React.FC = () => {
   )
 
   useEffect(() => {
-    api.get('providers').then(response => {
-      setProviders(response.data)
+    console.log(Cpf, Token)
+    api.post('/WSAgendamento/AulasPraticasDisponiveis',null, { params:{
+      cpf: Cpf,
+      token: Token,
+      codFilial: '1',
+      categoria: 'T',
+    }
+    }).then(response => {
+      setAuladisp(response.data)
+      console.log(response.data)
     })
   }, [])
 
@@ -166,7 +174,7 @@ const CreateAppointment: React.FC = () => {
           <Icon name="chevron-left" size={24} color="#999591" />
         </BackButton>
 
-        <HeaderTitle>Cabeleireiros</HeaderTitle>
+        <HeaderTitle>Horários Disponíveis</HeaderTitle>
 
         <UserAvatar
           source={{
@@ -209,7 +217,7 @@ const CreateAppointment: React.FC = () => {
 
           <OpenDatePickerButton onPress={handleToggleDatePicker}>
             <OpenDatePickerButtonText>
-              Selecionar outra data
+              Selecionar Data
             </OpenDatePickerButtonText>
           </OpenDatePickerButton>
 
@@ -270,7 +278,7 @@ const CreateAppointment: React.FC = () => {
         </Schedule>
 
         <CreateAppointmentButton onPress={handleCreateAppointment}>
-          <CreateAppointmentButtonText>Agendar</CreateAppointmentButtonText>
+          <CreateAppointmentButtonText>Agendar Aula</CreateAppointmentButtonText>
         </CreateAppointmentButton>
       </Content>
     </Container>

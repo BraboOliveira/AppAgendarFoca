@@ -32,6 +32,7 @@ interface AuthContextData {
   Nome: User
   Cpf: String
   Token: String
+  Filial: String
   loading: boolean
   signIn(credentials: SignInCredentials): Promise<void>
   signOut(): void
@@ -53,7 +54,7 @@ const AuthProvider: React.FC = ({ children }) => {
         '@GoBarber:Cpf',
       ])
 
-      if (Token[1] && Nome[1]) {
+      if (Token[1] && Nome[1] && Cpf[1]) {
         api.defaults.headers.authorization = `Bearer ${Token[1]}`
 
         setData({ Token: Token[1], Nome: JSON.parse(Nome[1]), Cpf: JSON.parse(Cpf[1])})
@@ -106,7 +107,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ Nome: data.Nome, Cpf: data.Cpf, Token: data.Token, loading, signIn, signOut, updateUser }}
+      value={{ Nome: data.Nome, Cpf: data.Cpf, Token: data.Token, Filial: data.Filial, loading, signIn, signOut, updateUser }}
     >
       {children}
     </AuthContext.Provider>

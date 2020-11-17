@@ -57,11 +57,18 @@ const navigateToProfile = useCallback((Aula: String) => {
   navigate('Profile', {Aula} )
 }, [navigate])
 
+const navigateToCreateAppointment = useCallback(
+  (providerId: string) => {
+    navigate('CreateAppointment', { providerId })
+  },
+  [navigate],
+)
+
   return(
     <Container>
       <Header>
         <HeaderTitle>
-          Codigo Unidade: {routeParams.codigo}
+          Unidade: {routeParams.nome}
           {/* <UserName>{Nome}</UserName> */}
         </HeaderTitle>
         <ProfileButton onPress={navigateToProfile}>
@@ -81,8 +88,8 @@ const navigateToProfile = useCallback((Aula: String) => {
         }
         renderItem={({ item: dados }) => (
           <ProviderContainer
-            // onPress={() => navigateToCreateAppointment(provider.Codigo)}
-            onPress={() => {}}
+            onPress={() => navigateToCreateAppointment(dados.Codigo)}
+            //onPress={() => {}}
             // onPress={() => console.log(provider.Codigo)}
           >
             <ProviderAvatar

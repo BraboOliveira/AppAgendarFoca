@@ -110,9 +110,10 @@ const SignIn: React.FC = () => {
                 keyboardType="email-address"
                 name="cpf"
                 icon="more-horizontal"
-                placeholder="CPF"
+                placeholder="CPF (somente numeros)"
                 returnKeyType="next"
-                defaultValue=" "
+                defaultValue=""
+                //defaultValue="93178468234"
                 onSubmitEditing={() => {
                   passwordInputRef.current?.focus()
                 }}
@@ -125,7 +126,8 @@ const SignIn: React.FC = () => {
                 placeholder="Data de Nascimento"
                 secureTextEntry
                 returnKeyType="send"
-                defaultValue=" "
+                defaultValue=""
+                //defaultValue="08071988"
                 onSubmitEditing={() => {
                   formRef.current?.submitForm()
                 }}
@@ -157,6 +159,10 @@ const SignIn: React.FC = () => {
 
 export default SignIn
 
+//Renan
 //08071988
-
 //93178468234
+
+//Danilo
+//84169184220
+//01011977

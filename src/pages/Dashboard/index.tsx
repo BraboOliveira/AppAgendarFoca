@@ -49,8 +49,8 @@ const Dashboard: React.FC = () => {
     navigate('Profile', {Aula} )
   }, [navigate])
 
-  const navigateToTipos = useCallback((codigo: string) => {
-    navigate('Tipos',{codigo})
+  const navigateToTipos = useCallback((codigo: string, nome: string) => {
+    navigate('Tipos',{codigo, nome})
   }, [navigate])
 
   const navigateToCreateAppointment = useCallback(
@@ -85,7 +85,7 @@ const Dashboard: React.FC = () => {
         renderItem={({ item: provider }) => (
           <ProviderContainer
             // onPress={() => navigateToCreateAppointment(provider.Codigo)}
-            onPress={() => navigateToTipos(provider.Codigo)}
+            onPress={() => navigateToTipos(provider.Codigo, provider.Nome)}
             // onPress={() => console.log(provider.Codigo)}
           >
             <ProviderAvatar
