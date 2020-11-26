@@ -25,7 +25,7 @@ const TiposDeAula: React.FC = () => {
   const route = useRoute()
   const routeParams = route.params as RouteParams
   const [dados, setDados] = useState([''])
-  const { Nome , Cpf, Token} = useAuth()
+  const { Nome , Cpf, Token, signOut} = useAuth()
   const { navigate } = useNavigation()
   const [cpf, setCpf] =useState(Cpf)
 
@@ -35,6 +35,7 @@ const TiposDeAula: React.FC = () => {
     async function loadAulas(): Promise<void> {
     //  const cpfA = await AsyncStorage.getItem('@GoBarber:Cpf');
     //  setCpf(cpfA);
+    try{
     const response = await api.post('/WSAgendamento/ServicosAluno',null, { params:{
       cpf: cpf,
       token: Token,
@@ -43,6 +44,11 @@ const TiposDeAula: React.FC = () => {
     })
     console.log(response.data);
     setDados(response.data);
+  }
+  catch(e){
+    console.log(e)
+    signOut()
+    }
   }
     loadAulas();
 }, [])

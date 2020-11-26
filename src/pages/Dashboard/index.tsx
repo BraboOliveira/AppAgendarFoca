@@ -32,16 +32,22 @@ const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<Provider[]>([])
   const [filial, setFilial] = useState([''])
 
-  const { Nome , Cpf, Token/* , signOut */ } = useAuth()
+  const { Nome , Cpf, Token , signOut  } = useAuth()
   const { navigate } = useNavigation()
 
   useEffect(() => {
     async function loadFilial(): Promise<void> {
+      try{
     const Filial = await AsyncStorage.getItem('@GoBarber:Filial');
     setFilial(JSON.parse(Filial))
     console.log(filial)
     console.log(Cpf, Token, Nome)
     }
+    catch(e){
+      console.log(e)
+      signOut()
+    }
+  }
     loadFilial();
   }, [])
 
