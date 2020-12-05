@@ -98,7 +98,7 @@ const SignUp: React.FC = () => {
             <Image source={logo} />
 
             <View>
-              <Title>Crie sua conta</Title>
+              <Title>Contato</Title>
             </View>
 
             <Form ref={formRef} onSubmit={handleSignUp}>

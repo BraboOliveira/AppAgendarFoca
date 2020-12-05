@@ -54,7 +54,6 @@ const TiposDeAula: React.FC = () => {
 }, [])
 
 //Ir Para Próxima Tela
-
 // const navigateToCalendar = useCallback((codigo: String, categoria: String, nome: String) => {
 //   navigate('Profile', {Aula} )
 // }, [navigate])
@@ -64,8 +63,8 @@ const navigateToProfile = useCallback((Aula: String) => {
 }, [navigate])
 
 const navigateToCreateAppointment = useCallback(
-  (providerId: string) => {
-    navigate('CreateAppointment', { providerId })
+  (providerId: string, Categoria: string) => {
+    navigate('CreateAppointment', { providerId , Categoria})
   },
   [navigate],
 )
@@ -88,15 +87,15 @@ const navigateToCreateAppointment = useCallback(
       </Header>
       <ProvidersList
         data={dados}
-        keyExtractor={dados => dados.Categoria}
+        keyExtractor={dados => dados.lenth}
         ListHeaderComponent={
           <ProvidersListTitle>Escolha Uma das Unidades Para Agendar Sua Aula</ProvidersListTitle>
         }
         renderItem={({ item: dados }) => (
           <ProviderContainer
-            onPress={() => navigateToCreateAppointment(dados.Codigo)}
+            onPress={() => navigateToCreateAppointment(dados.Categoria,routeParams.codigo)}
             //onPress={() => {}}
-            // onPress={() => console.log(provider.Codigo)}
+             //onPress={() => console.log(dados.Categoria,routeParams.codigo)}
           >
             <ProviderAvatar
               source={{

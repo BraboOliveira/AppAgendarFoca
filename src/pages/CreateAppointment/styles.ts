@@ -50,7 +50,7 @@ export const UserAvatar = styled.Image`
 `
 
 export const ProvidersListContainer = styled.View`
-  height: 112px;
+  height: 312px;
 `
 
 export const Content = styled.ScrollView``
@@ -78,7 +78,7 @@ export const ProviderName = styled.Text<ProviderNameProps>`
   margin-left: 8px;
   font-family: 'RobotoSlab-Medium';
   font-size: 16px;
-  color: ${props => (props.selected ? '#232129' : '#f4ede8')};
+  color: ${props => (props.selected ? '#9f9ca7' : '#f4ede8')};
 `
 
 export const Calendar = styled.View``
@@ -131,7 +131,8 @@ export const Hour = styled(RectButton)<HourProps>`
   background: ${props => (props.selected ? '#ff9000' : '#3e3b47')};
   border-radius: 10px;
   margin-right: 8px;
-
+  width: 300px;
+  border: 1px
   opacity: ${props => (props.available ? 1 : 0.3)};
 `
 
