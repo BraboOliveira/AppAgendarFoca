@@ -6,7 +6,7 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import { Container, Title, Description, OkButton, OkButtonText } from './styles'
 
 interface RouteParams {
-  date: number
+  date: string
 }
 
 const AppointmentCreated: React.FC = () => {

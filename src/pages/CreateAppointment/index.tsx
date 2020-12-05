@@ -3,9 +3,9 @@ import React, { useCallback, useEffect, useState, useMemo } from 'react'
 import { useRoute, useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Feather'
 import { Platform, Alert, Text } from 'react-native'
-import { format } from 'date-fns'
+import { endOfDay, format } from 'date-fns'
 import DateTimePicker from '@react-native-community/datetimepicker'
-
+import {format as dateFormat} from 'date-fns';
 import { useAuth } from '../../hooks/auth'
 import api from '../../services/api'
 
@@ -37,6 +37,7 @@ import {
 
 interface RouteParams {
   providerId: string
+  Categoria: string
 }
 
 export interface Provider {
@@ -46,7 +47,7 @@ export interface Provider {
 }
 
 interface AvailabilityItem {
-  hour: number
+  hour: string
   available: boolean
 }
 
@@ -55,66 +56,55 @@ const CreateAppointment: React.FC = () => {
   const route = useRoute()
   const routeParams = route.params as RouteParams
   const { goBack, navigate } = useNavigation()
-  const [aulaDisp, setAuladisp] = useState('')
+  const [aulaDisp, setAuladisp] = useState([])
+  const [dataMin, setDatamin] = useState('')
+  const [dataMax, setDatamax] = useState('')
   const [availability, setAvailability] = useState<AvailabilityItem[]>([])
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [dataSelecionada, setDataselecionada] = useState('')
-  const [selectedHour, setSelectedHour] = useState(0)
+  const [selectedHour, setSelectedHour] = useState('')
   const [showDatePicker, setShowDatePicker] = useState(false)
   const [show, setShow] = useState(false);
   const [providers, setProviders] = useState<Provider[]>([])
   const [selectedProvider, setSelectedProvider] = useState(
     routeParams.providerId,
   )
-  
+  const [placa, setPlaca] = useState('JKT0001')
+  const [dataHora, setDataHora] = useState('2020-12-05T17:12:00')
+  const [categoria, setCategoria] = useState('')
+  const [codFilial, setCodFilial] = useState('10')
+
 
   useEffect(() => {
-    console.log(Cpf, Token)
-    api.post('/WSAgendamento/AulasPraticasDisponiveis',null, { params:{
+    async function aulasDisponiveis(): Promise<void>{
+    try{
+      console.log(Cpf, Token, routeParams.providerId, routeParams.Categoria)
+      const a = await routeParams.providerId
+    const aulas = await api.post('/WSAgendamento/AulasPraticasDisponiveis',null, { params:{
       cpf: Cpf,
       token: Token,
-      codFilial: '10',
-      categoria: 'B',
-    }
-    }).then(response => {
-      setAuladisp(response.data)
-      let dataehora = response.data.map( hora=>hora.AulaDataHora)
+      //codFilial: a,
+      //categoria: routeParams.Categoria,
+       codFilial: '10',
+       categoria: 'B',
+    }})
+      setProviders(aulas.data)
+      console.log(aulas.data)
+      let dataehora = aulas.data.map( hora=>hora.AulaDataHora)
       setAvailability(dataehora)
+      setAuladisp(dataehora)
+      let datamax = format(new Date([...dataehora].pop()),'yyyy-MM-dd')
+      let datamin = format(new Date([...dataehora].shift()),'yyyy-MM-dd')
+      setDatamax(datamax)
+      setDatamin(datamin)
+      console.log(datamin)
       console.log(dataehora)
-    })
-    setProviders([
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        title: 'First Item',
-        name: '01 Aula',
-      },
-      {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Second Item',
-        name: '02 Aulas',
-      },
-      {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        title: 'Third Item',
-        name: '03 Aulas',
-      },
-    ])
-    
+  }catch(e){
+    console.log(e)
+    }
+  }
+  aulasDisponiveis()
   }, [])
-
-  // useEffect(() => {
-  //   api
-  //     .get(`providers/${selectedProvider}/day-availability`, {
-  //       params: {
-  //         year: selectedDate.getFullYear(),
-  //         month: selectedDate.getMonth() + 1,
-  //         day: selectedDate.getDate(),
-  //       },
-  //     })
-  //     .then(response => {
-  //       setAvailability(response.data)
-  //     })
-  // }, [selectedDate, selectedProvider])
 
   const navigateBack = useCallback(() => {
     goBack()
@@ -142,30 +132,32 @@ const CreateAppointment: React.FC = () => {
     [],
   )
 
-  const handleSelectHour = useCallback((hour: number) => {
-    setSelectedHour(hour)
+  const handleSelectHour = useCallback((Hora: string, Categoria: string, Placa: string) => {
+    console.log(Hora+' '+Categoria+' '+Placa)
+    setSelectedHour(Hora)
+    //setPlaca(Placa)
+    setCategoria(Categoria)
   }, [])
 
   const handleCreateAppointment = useCallback(async () => {
     try {
       const date = new Date(selectedDate)
-
-      date.setHours(selectedHour)
-      date.setMinutes(0)
-
+      console.log(Cpf, Token, codFilial, categoria, placa,selectedHour)
       await api.post('/WSAgendamento/AgendarAulaPratica',null, {params: {
-        cpf:'93178468234',
-        token:'46c02e4d-92fa-4aac-9631-d1269faf73ba',
-        codFilial:'10',
-        categoria:'B',
-        placa:'JKT0001',
-        dataHora:'2020-11-23T07:51:00',
+        cpf:Cpf,
+        token:Token,
+        codFilial: codFilial,
+        categoria: categoria,
+        placa:placa,
+        dataHora: selectedHour,
 
         // provider_id: selectedProvider,
         // date,
       }})
-      navigate('AppointmentCreated', { date: date.getTime() })
+      navigate('AppointmentCreated', { selectedHour: selectedHour.getTime() })
     } catch (err) {
+      console.log(err)
+      console.log(Cpf +' '+ Token+' '+ codFilial+' '+ categoria+' '+ placa +' '+ selectedHour)
       Alert.alert(
         'Erro ao criar agendamento',
         'Ocorreu ao tentar criar o agendamento, tente novamente',
@@ -173,34 +165,14 @@ const CreateAppointment: React.FC = () => {
     }
   }, [selectedProvider, selectedDate, selectedHour, navigate])
 
-  const morningAvailability = useMemo(() => {
-    return availability
-      .filter(({ hour }) => hour < 12)
-      .map(({ hour, available }) => {
-        return {
-          hour,
-          available,
-          hourFormatted: format(new Date().setHours(hour), 'HH:00'),
-        }
-      })
-  }, [availability])
+
 
   const dateFormatted = useMemo(
     () => format(selectedDate, "dd '/' MM '/' yyyy"),
     [selectedDate]
   );
+  
 
-  const afternoonAvailability = useMemo(() => {
-    return availability
-      .filter(({ hour }) => hour >= 12)
-      .map(({ hour, available }) => {
-        return {
-          hour,
-          available,
-          hourFormatted: format(new Date().setHours(hour), 'HH:00'),
-        }
-      })
-  }, [availability])
 
   return (
     <Container>
@@ -237,38 +209,60 @@ const CreateAppointment: React.FC = () => {
               display="calendar"
               onChange={handleDateChanged}
               textColor="#f4ede8"
-              minimumDate={new Date(2020, 12, 15)}
-              maximumDate={new Date(2020, 12, 18)}
+              minimumDate={new  Date ( dataMin) }
+              maximumDate={new  Date ( dataMax) }
               value={selectedDate}
               locale='pt-br'
             />
           )}
         </Calendar>
+        {/* <DateTimePicker 
+          value={selectedDate}
+          mode="time" 
+          minuteInterval = { 5 }
+          display = "spinner"
+        /> */}
         <Title>Escolha o horário</Title>
-        <ProvidersListContainer>
-          <ProvidersList
-            showsHorizontalScrollIndicator={false}
-            data={aulaDisp}
-            keyExtractor={provider => provider.id}
-            renderItem={({ item: provider }) => (
-              <ProviderContainer
-                onPress={() => handleSelectProvider(provider.id)}
-                selected={provider.id === selectedProvider}
-              >
-                <ProviderAvatar
-                  source={{
-                    uri:
-                      provider.avatar_url ||
-                      'https://api.adorable.io/avatars/32/abott@adorable.png',
-                  }}
-                />
-                <ProviderName selected={provider.id === selectedProvider}>
-                  {provider['AulaDataHora']}
-                </ProviderName>
-              </ProviderContainer>
-            )}
-          />
-        </ProvidersListContainer>
+         <SectionContent>
+     {/* {morningAvailability.map(({ hourFormatted, hour, available }) => (
+      <Hour
+        enabled={available}
+        selected={selectedHour === hour}
+        available={available}
+        key={hourFormatted}
+        onPress={() => handleSelectHour(hour)}
+      >
+        <HourText selected={selectedHour === hour}>
+          {hourFormatted}
+        </HourText>
+      </Hour>
+    ))} */}
+<ProvidersListContainer>
+ <ProvidersList
+  showsHorizontalScrollIndicator={false}
+  data={providers}
+  keyExtractor={(provider) => provider.AulaDataHora}
+  renderItem={({item})=>{
+    return(
+      <Hour 
+        onPress={() => handleSelectHour(item.AulaDataHora, item.Categoria, item.VeiculoPlaca)}
+        //onPress={() => console.log(item.AulaDataHora)}
+        selected={selectedHour === item.AulaDataHora}
+      >
+      <SectionContent>
+       <ProviderName >
+         Placa: {item.VeiculoPlaca}{"\n"}
+         Data: {dateFormatted } {"\n"}
+         Hora: { format(new Date(item.AulaDataHora),'HH:MM:SS')}
+       </ProviderName>
+      </SectionContent>
+      </Hour>
+    )
+  }}
+/>
+</ProvidersListContainer>
+  </SectionContent>
+
         <Schedule>
           
         </Schedule>
