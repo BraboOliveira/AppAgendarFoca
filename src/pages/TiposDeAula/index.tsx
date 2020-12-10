@@ -21,11 +21,15 @@ import api from '../../services/api'
 import { useAuth } from '../../hooks/auth'
 import Icon from 'react-native-vector-icons/Feather'
 
+interface RouteParams {
+  codigo: string
+}
+
 const TiposDeAula: React.FC = () => {
   const route = useRoute()
   const routeParams = route.params as RouteParams
   const [dados, setDados] = useState([''])
-  const { Nome , Cpf, Token, signOut} = useAuth()
+  const { Nome , Cpf, Token, signOut, codFilial, setCodFilial, categoria, setCategoria} = useAuth()
   const { navigate } = useNavigation()
   const [cpf, setCpf] =useState(Cpf)
 
@@ -33,13 +37,13 @@ const TiposDeAula: React.FC = () => {
     console.log('dados')
     console.log(Nome, Cpf, Token)
     async function loadAulas(): Promise<void> {
-    //  const cpfA = await AsyncStorage.getItem('@GoBarber:Cpf');
-    //  setCpf(cpfA);
+    setCodFilial(routeParams.codigo)
+
     try{
     const response = await api.post('/WSAgendamento/ServicosAluno',null, { params:{
       cpf: cpf,
       token: Token,
-      codFilial: routeParams.codigo
+      codFilial: codFilial,
     }
     })
     console.log(response.data);
@@ -93,7 +97,7 @@ const navigateToCreateAppointment = useCallback(
         }
         renderItem={({ item: dados }) => (
           <ProviderContainer
-            onPress={() => navigateToCreateAppointment(dados.Categoria,routeParams.codigo)}
+            onPress={() => {navigateToCreateAppointment(dados.Categoria,routeParams.codigo), setCategoria(dados.Categoria)}}
             //onPress={() => {}}
              //onPress={() => console.log(dados.Categoria,routeParams.codigo)}
           >

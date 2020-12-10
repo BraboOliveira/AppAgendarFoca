@@ -44,6 +44,8 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>({} as AuthState)
   const [loading, setLoading] = useState(true)
+  const [codFilial, setCodFilial] = useState('')
+  const [categoria, setCategoria] = useState('')
 
   useEffect(() => {
     async function loadStorageData(): Promise<void> {
@@ -107,7 +109,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ Nome: data.Nome, Cpf: data.Cpf, Token: data.Token, Filial: data.Filial, loading, signIn, signOut, updateUser }}
+      value={{ Nome: data.Nome, Cpf: data.Cpf, Token: data.Token, Filial: data.Filial, loading, signIn, signOut, updateUser , codFilial, setCodFilial, categoria, setCategoria}}
     >
       {children}
     </AuthContext.Provider>

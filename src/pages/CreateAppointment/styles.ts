@@ -81,7 +81,7 @@ export const ProviderName = styled.Text<ProviderNameProps>`
   color: ${props => (props.selected ? '#9f9ca7' : '#f4ede8')};
 `
 
-export const Calendar = styled.View``
+export const Calendar1 = styled.View``
 
 export const Title = styled.Text`
   font-family: 'RobotoSlab-Medium';

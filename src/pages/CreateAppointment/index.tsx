@@ -8,6 +8,7 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import {format as dateFormat} from 'date-fns';
 import { useAuth } from '../../hooks/auth'
 import api from '../../services/api'
+import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 
 import {
   Container,
@@ -21,7 +22,7 @@ import {
   ProviderContainer,
   ProviderAvatar,
   ProviderName,
-  Calendar,
+  Calendar1,
   Title,
   OpenDatePickerButton,
   OpenDatePickerButtonText,
@@ -52,7 +53,7 @@ interface AvailabilityItem {
 }
 
 const CreateAppointment: React.FC = () => {
-  const { Nome , Cpf, Token} = useAuth()
+  const { Nome , Cpf, Token, codFilial, setCodFilial, categoria, setCategoria} = useAuth()
   const route = useRoute()
   const routeParams = route.params as RouteParams
   const { goBack, navigate } = useNavigation()
@@ -71,22 +72,19 @@ const CreateAppointment: React.FC = () => {
   )
   const [placa, setPlaca] = useState('JKT0001')
   const [dataHora, setDataHora] = useState('2020-12-05T17:12:00')
-  const [categoria, setCategoria] = useState('')
-  const [codFilial, setCodFilial] = useState('10')
 
 
-  useEffect(() => {
     async function aulasDisponiveis(): Promise<void>{
     try{
-      console.log(Cpf, Token, routeParams.providerId, routeParams.Categoria)
-      const a = await routeParams.providerId
+      console.log(Cpf, Token, codFilial, categoria)
     const aulas = await api.post('/WSAgendamento/AulasPraticasDisponiveis',null, { params:{
       cpf: Cpf,
       token: Token,
-      //codFilial: a,
-      //categoria: routeParams.Categoria,
-       codFilial: '10',
-       categoria: 'B',
+      codFilial: codFilial,
+      categoria: categoria,
+       
+       //codFilial: '10',
+       //categoria: 'B',
     }})
       setProviders(aulas.data)
       console.log(aulas.data)
@@ -103,8 +101,7 @@ const CreateAppointment: React.FC = () => {
     console.log(e)
     }
   }
-  aulasDisponiveis()
-  }, [])
+
 
   const navigateBack = useCallback(() => {
     goBack()
@@ -193,13 +190,17 @@ const CreateAppointment: React.FC = () => {
       </Header>
 
       <Content>
-
-        <Calendar>
+        <Calendar1>
           <Title>Escolha a data</Title>
 
           <OpenDatePickerButton onPress={handleToggleDatePicker}>
             <OpenDatePickerButtonText>
               Selecionar Data
+            </OpenDatePickerButtonText>
+          </OpenDatePickerButton>
+          <OpenDatePickerButton onPress={aulasDisponiveis}>
+            <OpenDatePickerButtonText>
+              Aulas Disponiveis
             </OpenDatePickerButtonText>
           </OpenDatePickerButton>
           <SectionTitle>Data selecionada: {dateFormatted }</SectionTitle>
@@ -215,7 +216,7 @@ const CreateAppointment: React.FC = () => {
               locale='pt-br'
             />
           )}
-        </Calendar>
+        </Calendar1>
         {/* <DateTimePicker 
           value={selectedDate}
           mode="time" 
