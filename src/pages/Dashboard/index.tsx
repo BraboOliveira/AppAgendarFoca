@@ -30,18 +30,17 @@ export interface Provider {
 
 const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<Provider[]>([])
-  const [filial, setFilial] = useState([''])
-
-  const { Nome , Cpf, Token , signOut  } = useAuth()
+  const { nome , Cpf, Token , signOut , filial, setFilial, codFilial, setCodFilial, nomeFilial, setNomeFilial} = useAuth()
   const { navigate } = useNavigation()
 
   useEffect(() => {
     async function loadFilial(): Promise<void> {
       try{
+        console.log('Filial'+ filial)
     const Filial = await AsyncStorage.getItem('@GoBarber:Filial');
-    setFilial(JSON.parse(Filial))
+    //setFilial(JSON.parse(Filial))
     console.log(filial)
-    console.log(Cpf, Token, Nome)
+    console.log(Cpf, Token, nome)
     }
     catch(e){
       console.log(e)
@@ -71,7 +70,7 @@ const Dashboard: React.FC = () => {
       <Header>
         <HeaderTitle>
           Bem vindo, {'\n'}
-          <UserName>{Nome}</UserName>
+          <UserName>{nome}</UserName>
         </HeaderTitle>
         <ProfileButton onPress={navigateToProfile}>
           <UserAvatar
@@ -91,7 +90,7 @@ const Dashboard: React.FC = () => {
         renderItem={({ item: provider }) => (
           <ProviderContainer
             // onPress={() => navigateToCreateAppointment(provider.Codigo)}
-            onPress={() => navigateToTipos(provider.Codigo, provider.Nome)}
+            onPress={() => {navigateToTipos(provider.Codigo, provider.nome),setCodFilial(provider.Codigo),setNomeFilial(provider.Nome)}}
             // onPress={() => console.log(provider.Codigo)}
           >
             <ProviderAvatar

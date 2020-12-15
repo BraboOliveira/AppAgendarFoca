@@ -29,7 +29,7 @@ const TiposDeAula: React.FC = () => {
   const route = useRoute()
   const routeParams = route.params as RouteParams
   const [dados, setDados] = useState([''])
-  const { Nome , Cpf, Token, signOut, codFilial, setCodFilial, categoria, setCategoria} = useAuth()
+  const { Nome , Cpf, Token, signOut, codFilial, setCodFilial, categoria, setCategoria, nomeFilial} = useAuth()
   const { navigate } = useNavigation()
   const [cpf, setCpf] =useState(Cpf)
 
@@ -37,7 +37,7 @@ const TiposDeAula: React.FC = () => {
     console.log('dados')
     console.log(Nome, Cpf, Token)
     async function loadAulas(): Promise<void> {
-    setCodFilial(routeParams.codigo)
+    //setCodFilial(routeParams.codigo)
 
     try{
     const response = await api.post('/WSAgendamento/ServicosAluno',null, { params:{
@@ -51,7 +51,7 @@ const TiposDeAula: React.FC = () => {
   }
   catch(e){
     console.log(e)
-    signOut()
+    //signOut()
     }
   }
     loadAulas();
@@ -77,7 +77,7 @@ const navigateToCreateAppointment = useCallback(
     <Container>
       <Header>
         <HeaderTitle>
-          Unidade: {routeParams.nome}
+          Unidade: {nomeFilial}
           {/* <UserName>{Nome}</UserName> */}
         </HeaderTitle>
         <ProfileButton onPress={navigateToProfile}>

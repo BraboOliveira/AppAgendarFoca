@@ -1047,6 +1047,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/toolbar-android/-/toolbar-android-0.1.0-rc.2.tgz#86cae655836afacc52d4063062cc59837d1a8640"
   integrity sha512-UCblqsitOcoYxVc6QzcaqCKogeRnePPMw7cbGvW5GI/GXIwQel8Kge9d910W3MUPUzw3pFzhIZVug6U3W067Pg==
 
+"@react-native-picker/picker@^1.8.3", "@react-native-picker/picker@^1.9.4":
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-1.9.4.tgz#f4392b58eab320061c71f5c9ab6f74dc3501ec9e"
+  integrity sha512-71sNPRZf/PeMKpLMuzKHLT4p4zRilWnfv61nko9HMZtjW0R0DNy2zLy6PYokTbtbUqhwCdeEIldQcjFSoNR8rg==
+
 "@react-navigation/core@^5.12.0":
   version "5.12.0"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-5.12.0.tgz#0d3dab1ae8403b83f9387eaaee3f270dd8eadcfa"
@@ -4446,6 +4451,11 @@ lodash-es@^4.17.11:
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.15.tgz#21bd96839354412f23d7a10340e5eac6ee455d78"
   integrity sha512-rlrc3yU3+JNOpZ9zj5pQtxnx2THmvRykwL4Xlxoa8I9lHBlVbbyPhgyPMioxVZ4NqyxaVVtaJnzsyOidQIhyyQ==
 
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+  integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
+
 lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
@@ -5542,6 +5552,11 @@ react-is@^16.12.0, react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1, react-
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-native-android-dialog-picker@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-android-dialog-picker/-/react-native-android-dialog-picker-0.1.0.tgz#6aadc29dc581720b58b8128fc713203fb3200a82"
+  integrity sha512-4RyU+44J/u7AfMyV11EdtOd3cdGeZf4SvOrWCcOoGP4G4lHf00mSWUBSwsyaKrEklXaRcssSqSzL5uLYNE36jg==
+
 react-native-calendars@^1.826.0:
   version "1.826.0"
   resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.826.0.tgz#3548a09de630d30b78c07562d3f5f56340a89e02"
@@ -5574,6 +5589,14 @@ react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
   integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
+
+react-native-picker-select@^8.0.4:
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-picker-select/-/react-native-picker-select-8.0.4.tgz#3f7f1f42df69b06e7d2c10338288332a6c40fd10"
+  integrity sha512-orBjPIwBkV5oipyVw263YNMI56f6Kj3p/ejabZoCYYNSG3AiLVVhC2RqsxMgDA7IayyURAW+AlV+mDJyVqLBkg==
+  dependencies:
+    "@react-native-picker/picker" "^1.8.3"
+    lodash.isequal "^4.5.0"
 
 react-native-reanimated@^1.8.0:
   version "1.9.0"

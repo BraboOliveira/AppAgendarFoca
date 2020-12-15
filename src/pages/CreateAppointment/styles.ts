@@ -4,6 +4,7 @@ import { FlatList } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import { Provider } from './index'
 
+
 interface ProviderContainerProps {
   selected: boolean
 }
@@ -50,13 +51,19 @@ export const UserAvatar = styled.Image`
 `
 
 export const ProvidersListContainer = styled.View`
-  height: 312px;
+  height: 250px;
+  align-items: center;
+  border: 1px;
+  border-color: #f4ede8;
+  margin: 0px 20px 10px 20px;
+  border-radius: 15px;
 `
 
-export const Content = styled.ScrollView``
+export const Content = styled.SafeAreaView``
+export const Content1 = styled.ScrollView``
 
 export const ProvidersList = styled(FlatList as new () => FlatList<Provider>)`
-  padding: 32px 24px;
+  padding: 5px 24px;
 `
 
 export const ProviderContainer = styled(RectButton)<ProviderContainerProps>`
@@ -87,7 +94,7 @@ export const Title = styled.Text`
   font-family: 'RobotoSlab-Medium';
   color: #f4ede8;
   font-size: 24px;
-  margin: 0 24px 24px;
+  margin: 0 24px 10px;
 `
 
 export const OpenDatePickerButton = styled(RectButton)`
@@ -110,7 +117,7 @@ export const Schedule = styled.View`
 `
 
 export const Section = styled.View`
-  margin-bottom: 24px;
+  margin-bottom: 5px;
 `
 
 export const SectionTitle = styled.Text`
@@ -127,7 +134,8 @@ export const SectionContent = styled.ScrollView.attrs({
 })``
 
 export const Hour = styled(RectButton)<HourProps>`
-  padding: 12px;
+  padding: 10px;
+  margin-bottom: 5px;
   background: ${props => (props.selected ? '#ff9000' : '#3e3b47')};
   border-radius: 10px;
   margin-right: 8px;

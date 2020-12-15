@@ -32,11 +32,21 @@ interface AuthContextData {
   Nome: User
   Cpf: String
   Token: String
+  setToken():void
   Filial: String
+  filial: Array
+  setFilial() : void
   loading: boolean
+  qtdAula: Number
+  codFilial: string
+  nome: string
+  setNome():void
+  setCodFilial(): void
   signIn(credentials: SignInCredentials): Promise<void>
   signOut(): void
   updateUser(Nome: User): Promise<void>
+  nomeFilial: string
+  setNomeFilial(): void
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -46,6 +56,14 @@ const AuthProvider: React.FC = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [codFilial, setCodFilial] = useState('')
   const [categoria, setCategoria] = useState('')
+  const [qtdAula, setQtdaula] = useState(2)
+  const [filial, setFilial] = useState([])
+  const [Cpf, setCpf] =useState('')
+  const [Token, setToken] = useState('')
+  const [nome, setNome] = useState('')
+  const [nomeFilial, setNomeFilial] = useState('')
+
+
 
   useEffect(() => {
     async function loadStorageData(): Promise<void> {
@@ -58,7 +76,6 @@ const AuthProvider: React.FC = ({ children }) => {
 
       if (Token[1] && Nome[1] && Cpf[1]) {
         api.defaults.headers.authorization = `Bearer ${Token[1]}`
-
         setData({ Token: Token[1], Nome: JSON.parse(Nome[1]), Cpf: JSON.parse(Cpf[1])})
       }
 
@@ -74,10 +91,12 @@ const AuthProvider: React.FC = ({ children }) => {
       nascimento: nascimento,
     }
     })
-
     const { Token, Filial, Nome, Cpf } = response.data
-    console.log(Cpf);
-    
+    setFilial(Filial)
+    setCpf(Cpf)
+    setToken(Token)
+    setNome(Nome)
+    console.log(filial,Cpf,nome,Token);
     await AsyncStorage.multiSet([
       ['@GoBarber:Token', Token],
       ['@GoBarber:Filial', JSON.stringify(Filial)],
@@ -109,7 +128,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ Nome: data.Nome, Cpf: data.Cpf, Token: data.Token, Filial: data.Filial, loading, signIn, signOut, updateUser , codFilial, setCodFilial, categoria, setCategoria}}
+      value={{ Nome: data.Nome, nome, Cpf, Token, loading, signIn, signOut, updateUser , codFilial, setCodFilial, categoria, setCategoria, qtdAula, setQtdaula, filial, setFilial, nomeFilial, setNomeFilial}}
     >
       {children}
     </AuthContext.Provider>
