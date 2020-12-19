@@ -91,7 +91,7 @@ const navigateToCreateAppointment = useCallback(
       </Header>
       <ProvidersList
         data={dados}
-        keyExtractor={dados => dados.lenth}
+        keyExtractor={(dados,index) => index.toString()}
         ListHeaderComponent={
           <ProvidersListTitle>Escolha Uma das Unidades Para Agendar Sua Aula</ProvidersListTitle>
         }

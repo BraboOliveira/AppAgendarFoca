@@ -15,6 +15,7 @@ interface User {
   name: string
   cpf: string
   avatar_url: string
+  Nascimento: string
 }
 
 interface AuthState {
@@ -32,12 +33,13 @@ interface AuthContextData {
   Nome: User
   Cpf: String
   Token: String
+  Nascimento:String
   setToken():void
   Filial: String
   filial: Array
   setFilial() : void
   loading: boolean
-  qtdAula: Number
+  qtdAula: String
   codFilial: string
   nome: string
   setNome():void
@@ -67,17 +69,27 @@ const AuthProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     async function loadStorageData(): Promise<void> {
+      try{
       console.log('ler dados asyncStorage')
-      const [Token, Nome, Cpf] = await AsyncStorage.multiGet([
-        '@GoBarber:Token',
-        '@GoBarber:Nome',
-        '@GoBarber:Cpf',
+      const [Token, Nome, Cpf, Nascimento] = await AsyncStorage.multiGet([
+        '@Agendamento:Token',
+        '@Agendamento:Nome',
+        '@Agendamento:Cpf',
+        '@Agendamento:Nascimento',
       ])
 
       if (Token[1] && Nome[1] && Cpf[1]) {
         api.defaults.headers.authorization = `Bearer ${Token[1]}`
+        console.log(Cpf, Nascimento)
+        await signIn({
+          cpf:  JSON.parse(Cpf[1]),
+          nascimento:  JSON.parse(Nascimento[1]),
+        })
         setData({ Token: Token[1], Nome: JSON.parse(Nome[1]), Cpf: JSON.parse(Cpf[1])})
       }
+    }catch{
+      signOut();
+    }
 
       setLoading(false)
     }
@@ -86,6 +98,7 @@ const AuthProvider: React.FC = ({ children }) => {
   }, [])
 
   const signIn = useCallback(async ({ cpf, nascimento }) => {
+    try{
     const response = await api.post('/WSAgendamento/Login',null, { params:{
       cpf: cpf,
       nascimento: nascimento,
@@ -98,24 +111,30 @@ const AuthProvider: React.FC = ({ children }) => {
     setNome(Nome)
     console.log(filial,Cpf,nome,Token);
     await AsyncStorage.multiSet([
-      ['@GoBarber:Token', Token],
-      ['@GoBarber:Filial', JSON.stringify(Filial)],
-      ['@GoBarber:Nome', JSON.stringify(Nome)],
-      ['@GoBarber:Cpf', JSON.stringify(Cpf)],
+      ['@Agendamento:Token', Token],
+      ['@Agendamento:Filial', JSON.stringify(Filial)],
+      ['@Agendamento:Nome', JSON.stringify(Nome)],
+      ['@Agendamento:Cpf', JSON.stringify(Cpf)],
+      ['@Agendamento:Nascimento', JSON.stringify(nascimento)],
     ])
     api.defaults.headers.authorization = `Bearer ${Token}`
     setData({ Token, Nome, Cpf })
+  }
+  catch(err)
+  {
+    console.log(err.responde.data)
+  }
   }, [])
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(['@GoBarber:Token', '@GoBarber:Nome','@GoBarber:Filial','@GoBarber:Cpf'])
+    await AsyncStorage.multiRemove(['@Agendamento:Token', '@Agendamento:Nome','@Agendamento:Filial','@Agendamento:Cpf', '@Agendamento:Nascimento'])
 
     setData({} as AuthState)
   }, [])
 
   const updateUser = useCallback(
     async (Nome: User) => {
-      await AsyncStorage.setItem('@GoBarber:Nome', JSON.stringify(Nome))
+      await AsyncStorage.setItem('@Agendamento:Nome', JSON.stringify(Nome))
 
       setData({
         Token: data.Token,

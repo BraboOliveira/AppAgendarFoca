@@ -8,14 +8,6 @@ import { Provider } from './index'
 interface ProviderContainerProps {
   selected: boolean
 }
-interface ProviderNameProps {
-  selected: boolean
-}
-
-interface HourProps {
-  available: boolean
-  selected: boolean
-}
 interface HourTextProps {
   selected: boolean
 }
@@ -60,7 +52,7 @@ export const ProvidersListContainer = styled.View`
 `
 
 export const Content = styled.SafeAreaView``
-export const Content1 = styled.ScrollView``
+export const Content1 = styled.SafeAreaView``
 
 export const ProvidersList = styled(FlatList as new () => FlatList<Provider>)`
   padding: 5px 24px;
@@ -141,7 +133,7 @@ export const Hour = styled(RectButton)<HourProps>`
   margin-right: 8px;
   width: 300px;
   border: 1px
-  opacity: ${props => (props.available ? 1 : 0.3)};
+  opacity: ${props => (props.available ? 1 : 0.7)};
 `
 
 export const HourText = styled.Text<HourTextProps>`

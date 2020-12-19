@@ -26,18 +26,21 @@ export interface Provider {
   id: string
   name: string
   avatar_url: string
+  Codigo: string
+  nome: string
 }
 
 const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<Provider[]>([])
   const { nome , Cpf, Token , signOut , filial, setFilial, codFilial, setCodFilial, nomeFilial, setNomeFilial} = useAuth()
   const { navigate } = useNavigation()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function loadFilial(): Promise<void> {
       try{
         console.log('Filial'+ filial)
-    const Filial = await AsyncStorage.getItem('@GoBarber:Filial');
+    const Filial = await AsyncStorage.getItem('@Agendamento:Filial');
     //setFilial(JSON.parse(Filial))
     console.log(filial)
     console.log(Cpf, Token, nome)
@@ -83,7 +86,7 @@ const Dashboard: React.FC = () => {
 
       <ProvidersList
         data={filial}
-        keyExtractor={filial => filial.Codigo}
+        keyExtractor={(filial,index) => index.toString()}
         ListHeaderComponent={
           <ProvidersListTitle>Escolha Uma das Unidades Para Agendar Sua Aula</ProvidersListTitle>
         }

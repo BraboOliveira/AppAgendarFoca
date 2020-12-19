@@ -83,7 +83,7 @@ const CreateAppointment: React.FC = () => {
     routeParams.providerId,
   )
   const [placa, setPlaca] = useState('')
-  const [dataHora, setDataHora] = useState('2020-12-05T17:12:00')
+  const [dataHora, setDataHora] = useState('')
 
 useEffect(()=>{
     async function aulasDisponiveis(): Promise<void>{
@@ -111,7 +111,7 @@ useEffect(()=>{
   useEffect(() => {
     async function QtdAulas(): Promise<void> {
       try{
-        console.log(Cpf, Token, codFilial, categoria)
+        console.log(Cpf, Token, codFilial, categoria, qtdAula)
       const aulas = await api.post('/WSAgendamento/DisponibilidadeVeiculos',null, { params:{
         cpf: Cpf,
         token: Token,
@@ -170,6 +170,7 @@ useEffect(()=>{
   const handleSelectHour = useCallback((Hora: string, categoria: string, placa: string) => {
     console.log(Hora+' '+categoria+' '+placa)
     setSelectedHour(format(new Date(Hora),'HH:MM:SS'))
+    setDataHora(Hora)
     setCategoria(categoria)
   }, [])
 
@@ -180,24 +181,25 @@ useEffect(()=>{
 
   const handleCreateAppointment = useCallback(async () => {
     try {
-      const date = new Date(selectedDate)
-      console.log(Cpf, Token, codFilial, categoria, placa, selectedHour)
+      //const date = new Date(selectedDate)
+      console.log(Cpf, Token, codFilial, categoria, placa, dataHora)
       await api.post('/WSAgendamento/AgendarAulaPratica',null, {params: {
         cpf:Cpf,
         token:Token,
         codFilial: codFilial,
         categoria: categoria,
         placa:placa,
-        dataHora: selectedHour,
+        dataHora: dataHora,
         qtdAula: qtdAula,
       }})
-      navigate('AppointmentCreated', { selectedHour: selectedHour.getTime() })
+      navigate('AppointmentCreated', { selectedHour: dataHora })
     } catch (err) {
-      console.log(err)
-      console.log(Cpf +' '+ Token+' '+ codFilial+' '+ categoria+' '+ placa +' '+ selectedHour)
+      console.log(err.response.data)
+      console.log(Cpf +' '+ Token+' '+ codFilial+' '+ categoria+' '+ placa +' '+ dataHora)
       Alert.alert(
         'Erro ao criar agendamento',
         'Ocorreu ao tentar criar o agendamento, tente novamente',
+        //'Caso o erro persista entre em contato com a administração',
       )
     }
   }, [selectedProvider, selectedDate, selectedHour, navigate])
@@ -251,12 +253,13 @@ const styles = StyleSheet.create({
               horizontal
               showsHorizontalScrollIndicator={true}
               data={qtdaulas}
-              keyExtractor={(items) => items.placa}
+              keyExtractor={(item,index) => index.toString()}
               renderItem={({item})=>{
             return(   
               <Section> 
                 <Hour 
                   onPress={() =>handleSelectPlaca(item.placa)}
+                  selected={placa === item.placa}
                 >
                 <ProviderName >
                   Carro: {item.marca}{"\n"}
@@ -279,11 +282,6 @@ const styles = StyleSheet.create({
               Selecionar Data
             </OpenDatePickerButtonText>
           </OpenDatePickerButton>
-          {/* <OpenDatePickerButton onPress={aulasDisponiveis}>
-            <OpenDatePickerButtonText>
-              Aulas Disponiveis
-            </OpenDatePickerButtonText>
-          </OpenDatePickerButton> */}
           <SectionTitle>Data selecionada: {dateFormatted }</SectionTitle>
           {showDatePicker && (
             <DateTimePicker
@@ -303,19 +301,19 @@ const styles = StyleSheet.create({
             <ProvidersList
               showsHorizontalScrollIndicator={false}
               data={providers}
-              keyExtractor={(providers) => providers.inicioAula}
+              keyExtractor={(providers,index) => index.toString()}
               renderItem={({item})=>{
             return(   
               <Section> 
                 <Hour 
                   onPress={() => handleSelectHour(item.inicioAula, item.categoria, item.placa)}
-                  selected={selectedHour === item.inicioAula}
+                  selected={dataHora === item.inicioAula}
                 >
                 <ProviderName >
                   Placa: {item.placa}{"\n"}
                   Data: {dateFormatted } {"\n"}
-                  HoraI: { format(new Date(item.inicioAula),'HH:MM:SS')}
-                  HoraF : { format(new Date(item.fimAula),'HH:MM:SS')}
+                  HoraI: { format(new Date(item.inicioAula),'hh:mm:ss')}
+                  HoraF : { format(new Date(item.fimAula),'hh:mm:ss')}
                 </ProviderName>
       
                 </Hour>
