@@ -43,7 +43,7 @@ export const UserAvatar = styled.Image`
 `
 
 export const ProvidersListContainer = styled.View`
-  height: 250px;
+  height: 200px;
   align-items: center;
   border: 1px;
   border-color: #f4ede8;

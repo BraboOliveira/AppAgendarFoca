@@ -102,7 +102,7 @@ useEffect(()=>{
        setProviders(aulas.data)
        console.log(...aulas.data)
   }catch(e){
-    console.log(e)
+    console.log(e.response.data)
     }
   }
   aulasDisponiveis()
@@ -134,7 +134,7 @@ useEffect(()=>{
         setDatamin(datamin)
 
     }catch(e){
-      console.log(e)
+      console.log(e.response.data)
     }
     }
     QtdAulas()
@@ -181,8 +181,8 @@ useEffect(()=>{
 
   const handleCreateAppointment = useCallback(async () => {
     try {
-      //const date = new Date(selectedDate)
       console.log(Cpf, Token, codFilial, categoria, placa, dataHora)
+      const date = new Date(dataHora)
       await api.post('/WSAgendamento/AgendarAulaPratica',null, {params: {
         cpf:Cpf,
         token:Token,
@@ -192,9 +192,9 @@ useEffect(()=>{
         dataHora: dataHora,
         qtdAula: qtdAula,
       }})
-      navigate('AppointmentCreated', { selectedHour: dataHora })
+      navigate('AppointmentCreated', { date : date.getTime()})
     } catch (err) {
-      console.log(err.response.data)
+      //console.log(err.response.data)
       console.log(Cpf +' '+ Token+' '+ codFilial+' '+ categoria+' '+ placa +' '+ dataHora)
       Alert.alert(
         'Erro ao criar agendamento',
