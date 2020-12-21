@@ -192,7 +192,7 @@ useEffect(()=>{
         dataHora: dataHora,
         qtdAula: qtdAula,
       }})
-      navigate('AppointmentCreated', { date : date.getTime()})
+      navigate('AppointmentCreated', { date : date.getTime() })
     } catch (err) {
       //console.log(err.response.data)
       console.log(Cpf +' '+ Token+' '+ codFilial+' '+ categoria+' '+ placa +' '+ dataHora)
@@ -200,6 +200,7 @@ useEffect(()=>{
         'Erro ao criar agendamento',
         'Ocorreu ao tentar criar o agendamento, tente novamente',
         //'Caso o erro persista entre em contato com a administração',
+        //teste
       )
     }
   }, [selectedProvider, selectedDate, selectedHour, navigate])
