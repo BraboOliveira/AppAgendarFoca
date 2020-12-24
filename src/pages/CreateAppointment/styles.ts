@@ -145,7 +145,7 @@ export const Hour1 = styled(RectButton)<HourProps>`
   opacity: ${props => (props.available ? 1 : 0.7)};
 `
 export const HourText = styled.Text<HourTextProps>`
-  color: ${props => (props.selected ? '#232129' : '#f4ede8')};
+  color: ${props => (props.selected ? '#000' : '#fff')};
   font-family: 'RobotoSlab-Regular';
   font-size: 16px;
 `

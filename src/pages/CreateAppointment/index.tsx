@@ -272,7 +272,9 @@ else{
                   selected={qtdAula === item.value}
                 >
                 <ProviderName >
+                <HourText selected={qtdAula === item.value}>
                   {item.label}
+                </HourText>
                 </ProviderName>
       
                 </Hour1>
@@ -296,11 +298,13 @@ else{
                   selected={placa === item.placa}
                 >
                 <ProviderName >
+                  <HourText selected={placa === item.placa}>
                   Carro: {item.marca}{"\n"}
                   Placa: {item.placa}{"\n"}
                   Data Inicio: {inicio} {"\n"}
                   Data Fim: {final} {"\n"}
                   Aulas Disponíveis: {item.qtdAulasDisponiveis}
+                  </HourText>
                 </ProviderName>
       
                 </Hour>
@@ -345,11 +349,12 @@ else{
                 >                  
                   {item.hasOwnProperty('placa') && item.hasOwnProperty('fimAula') && item.hasOwnProperty('inicioAula') ?
                 <ProviderName >
+                  <HourText selected={dataHora === item.inicioAula}>
                     Placa: {item.placa}{"\n"}
                     Data: {dateFormatted } {"\n"}
                     HoraI: { format(new Date(item.inicioAula),'hh:mm:ss')}
                     HoraF : { format(new Date(item.fimAula),'hh:mm:ss')}
-                  
+                  </HourText>
                 </ProviderName>
                 : <Text></Text>
                 }
