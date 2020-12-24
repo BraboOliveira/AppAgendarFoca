@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-// import { Text, Button } from 'react-native'
+ import { Text, View, ActivityIndicator } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
 import api from '../../services/api'
@@ -34,7 +34,6 @@ const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<Provider[]>([])
   const { nome , Cpf, Token , signOut , filial, setFilial, codFilial, setCodFilial, nomeFilial, setNomeFilial} = useAuth()
   const { navigate } = useNavigation()
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function loadFilial(): Promise<void> {

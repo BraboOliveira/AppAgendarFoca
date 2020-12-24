@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState, useMemo } from 'react'
 
 import { useRoute, useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Feather'
-import { Platform, Alert, Text, StyleSheet } from 'react-native'
+import { Platform, Alert, Text, StyleSheet,View, ActivityIndicator } from 'react-native'
 import { endOfDay, format } from 'date-fns'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import {format as dateFormat} from 'date-fns';
@@ -32,6 +32,7 @@ import {
   SectionTitle,
   SectionContent,
   Hour,
+  Hour1,
   HourText,
   CreateAppointmentButton,
   CreateAppointmentButtonText,
@@ -77,7 +78,7 @@ const CreateAppointment: React.FC = () => {
   const [dataSelecionada, setDataselecionada] = useState('')
   const [selectedHour, setSelectedHour] = useState('')
   const [showDatePicker, setShowDatePicker] = useState(false)
-  const [show, setShow] = useState(false);
+  const [baixou, setBaixou] = useState(false)
   const [providers, setProviders] = useState<Provider[]>([])
   const [selectedProvider, setSelectedProvider] = useState(
     routeParams.providerId,
@@ -89,7 +90,7 @@ useEffect(()=>{
     async function aulasDisponiveis(): Promise<void>{
     try{
       const Data = format(selectedDate, "yyyy'-'MM'-'dd")
-      console.log(Cpf, Token, codFilial, categoria)
+      console.log(Cpf, Token, codFilial, categoria, Data)
     const aulas = await api.post('/WSAgendamento/AulasPraticasDisponiveisDia',null, { params:{
       cpf: Cpf,
       token: Token,
@@ -132,6 +133,7 @@ useEffect(()=>{
         console.log(dataMax)
         setDatamax(datamax)
         setDatamin(datamin)
+        setBaixou(true)
 
     }catch(e){
       console.log(e.response.data)
@@ -158,7 +160,6 @@ useEffect(()=>{
       if (Platform.OS === 'android') {
         setShowDatePicker(false)
       }
-
       if (date) {
         console.log(date)
         setSelectedDate(date)
@@ -181,8 +182,9 @@ useEffect(()=>{
 
   const handleCreateAppointment = useCallback(async () => {
     try {
-      console.log(Cpf, Token, codFilial, categoria, placa, dataHora)
       const date = new Date(dataHora)
+      console.log(Cpf, Token, codFilial, categoria, placa, date )
+      
       await api.post('/WSAgendamento/AgendarAulaPratica',null, {params: {
         cpf:Cpf,
         token:Token,
@@ -212,11 +214,10 @@ useEffect(()=>{
     [selectedDate]
   );
   
-const items = [
-  { label: 'xxx-0987', value: 'xxx-09871' },
-  { label: 'JKT0001', value: 'xxx-09872' },
-  { label: 'xxx-0987', value: 'xxx-09873' },
-  { label: 'xxx-0987', value: 'xxx-09874' },
+const aulasQtd = [
+  { label: '1 aula', value: '1' },
+  { label: '2 aulas', value: '2' },
+  { label: '3 aulas', value: '3' },
 ];
 const placeholder = {
   label: 'Selecione um veículo...',
@@ -230,6 +231,14 @@ const styles = StyleSheet.create({
     color: __BUNDLE_START_TIME__,
   }
 });
+if (!baixou) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <ActivityIndicator size="large" color="#999" />
+    </View>
+  )
+}
+else{
   return (
     <Container>
       <Header>
@@ -248,6 +257,30 @@ const styles = StyleSheet.create({
         />
       </Header>
       <Content1>
+      <Title>Quantidade de Aulas</Title>
+      <Content>
+      <ProvidersList
+              horizontal
+              showsHorizontalScrollIndicator={true}
+              data={aulasQtd}
+              keyExtractor={(item,index) => index.toString()}
+              renderItem={({item})=>{
+            return(   
+              <Section> 
+                <Hour1 
+                  onPress={() =>setQtdaula(item.value)}
+                  selected={qtdAula === item.value}
+                >
+                <ProviderName >
+                  {item.label}
+                </ProviderName>
+      
+                </Hour1>
+               </Section>  
+                    )
+                }}
+              />
+      </Content>
       <Title>Escolha o Veículo</Title>
       <Content>
       <ProvidersList
@@ -292,7 +325,7 @@ const styles = StyleSheet.create({
               textColor="#f4ede8"
               minimumDate={new  Date ( dataMin) }
               maximumDate={new  Date ( dataMax) }
-              value={selectedDate}
+              value={new Date(selectedDate)}
               locale='pt-br'
             />
           )}
@@ -309,14 +342,17 @@ const styles = StyleSheet.create({
                 <Hour 
                   onPress={() => handleSelectHour(item.inicioAula, item.categoria, item.placa)}
                   selected={dataHora === item.inicioAula}
-                >
+                >                  
+                  {item.hasOwnProperty('placa') && item.hasOwnProperty('fimAula') && item.hasOwnProperty('inicioAula') ?
                 <ProviderName >
-                  Placa: {item.placa}{"\n"}
-                  Data: {dateFormatted } {"\n"}
-                  HoraI: { format(new Date(item.inicioAula),'hh:mm:ss')}
-                  HoraF : { format(new Date(item.fimAula),'hh:mm:ss')}
+                    Placa: {item.placa}{"\n"}
+                    Data: {dateFormatted } {"\n"}
+                    HoraI: { format(new Date(item.inicioAula),'hh:mm:ss')}
+                    HoraF : { format(new Date(item.fimAula),'hh:mm:ss')}
+                  
                 </ProviderName>
-      
+                : <Text></Text>
+                }
                 </Hour>
                </Section>  
                     )
@@ -329,5 +365,6 @@ const styles = StyleSheet.create({
         </Content1>
     </Container>
   )
+              }
 }
 export default CreateAppointment

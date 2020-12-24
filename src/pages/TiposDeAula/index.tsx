@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { View, ActivityIndicator } from 'react-native'
 import { 
   Container,
   Header,
@@ -29,6 +30,7 @@ const TiposDeAula: React.FC = () => {
   const route = useRoute()
   const routeParams = route.params as RouteParams
   const [dados, setDados] = useState([''])
+  const [baixou, setBaixou] = useState(false)
   const { Nome , Cpf, Token, signOut, codFilial, setCodFilial, categoria, setCategoria, nomeFilial} = useAuth()
   const { navigate } = useNavigation()
   const [cpf, setCpf] =useState(Cpf)
@@ -48,6 +50,7 @@ const TiposDeAula: React.FC = () => {
     })
     console.log(response.data);
     setDados(response.data);
+    setBaixou(true)
   }
   catch(e){
     console.log(e)
@@ -72,7 +75,14 @@ const navigateToCreateAppointment = useCallback(
   },
   [navigate],
 )
-
+if (!baixou) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <ActivityIndicator size="large" color="#999" />
+    </View>
+  )
+}
+else{
   return(
     <Container>
       <Header>
@@ -93,7 +103,7 @@ const navigateToCreateAppointment = useCallback(
         data={dados}
         keyExtractor={(dados,index) => index.toString()}
         ListHeaderComponent={
-          <ProvidersListTitle>Escolha Uma das Unidades Para Agendar Sua Aula</ProvidersListTitle>
+          <ProvidersListTitle>Escolha o tipo de Aula das para Agendar:</ProvidersListTitle>
         }
         renderItem={({ item: dados }) => (
           <ProviderContainer
@@ -127,7 +137,7 @@ const navigateToCreateAppointment = useCallback(
         )}
       />
     </Container>
-    );
+    );}
 }
 
 export default TiposDeAula;
