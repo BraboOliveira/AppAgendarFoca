@@ -85,7 +85,7 @@ export const Calendar1 = styled.View``
 export const Title = styled.Text`
   font-family: 'RobotoSlab-Medium';
   color: #f4ede8;
-  font-size: 24px;
+  font-size: 20px;
   margin: 0 24px 10px;
 `
 
@@ -100,7 +100,7 @@ export const OpenDatePickerButton = styled(RectButton)`
 
 export const OpenDatePickerButtonText = styled.Text`
   font-family: 'RobotoSlab-Medium';
-  font-size: 16px;
+  font-size: 18px;
   color: #232129;
 `
 
@@ -109,11 +109,11 @@ export const Schedule = styled.View`
 `
 
 export const Section = styled.View`
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 `
 
 export const SectionTitle = styled.Text`
-  font-size: 18px;
+  font-size: 16px;
   color: #999591;
   font-family: 'RobotoSlab-Regular';
   margin: 0 24px 12px;
@@ -147,7 +147,7 @@ export const Hour1 = styled(RectButton)<HourProps>`
 export const HourText = styled.Text<HourTextProps>`
   color: ${props => (props.selected ? '#000' : '#fff')};
   font-family: 'RobotoSlab-Regular';
-  font-size: 16px;
+  font-size: 14px;
 `
 
 export const CreateAppointmentButton = styled(RectButton)`
