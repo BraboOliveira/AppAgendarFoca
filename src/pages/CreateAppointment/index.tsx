@@ -246,7 +246,7 @@ else{
           <Icon name="chevron-left" size={24} color="#999591" />
         </BackButton>
 
-        <HeaderTitle>Horários Disponíveis</HeaderTitle>
+        <HeaderTitle>Finalizar Agendamento</HeaderTitle>
 
         <UserAvatar
           source={{
@@ -350,10 +350,10 @@ else{
                   {item.hasOwnProperty('placa') && item.hasOwnProperty('fimAula') && item.hasOwnProperty('inicioAula') ?
                 <ProviderName >
                   <HourText selected={dataHora === item.inicioAula}>
-                    Placa: {item.placa}{"\n"}
+                    Veiculo: {item.marca}{' '} Placa: {item.placa}{"\n"}
                     Data: {dateFormatted } {"\n"}
-                    HoraI: { format(new Date(item.inicioAula),'hh:mm:ss')}
-                    HoraF : { format(new Date(item.fimAula),'hh:mm:ss')}
+                    Inicio Aula: { format(new Date(item.inicioAula),'hh:mm:ss')}{' '}
+                    Fim Aula: { format(new Date(item.fimAula),'hh:mm:ss')}
                   </HourText>
                 </ProviderName>
                 : <Text></Text>
