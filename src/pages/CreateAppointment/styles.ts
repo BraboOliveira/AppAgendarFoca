@@ -43,7 +43,7 @@ export const UserAvatar = styled.Image`
 `
 
 export const ProvidersListContainer = styled.View`
-  height: 200px;
+  height: 220px;
   align-items: center;
   border: 1px;
   border-color: #f4ede8;
@@ -131,7 +131,7 @@ export const Hour = styled(RectButton)<HourProps>`
   background: ${props => (props.selected ? '#ff9000' : '#3e3b47')};
   border-radius: 10px;
   margin-right: 8px;
-  width: 300px;
+  width: 320px;
   border: 1px
   opacity: ${props => (props.available ? 1 : 0.7)};
 `

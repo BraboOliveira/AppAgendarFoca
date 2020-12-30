@@ -37,7 +37,7 @@ const App: React.FC = () => {
             }}
           >
             <Routes />
-            <ThemeSwitcher toggleTheme={toggleTheme} />
+            {/* <ThemeSwitcher toggleTheme={toggleTheme} /> */}
           </View>
         </AppProvider>
       </ThemeProvider>

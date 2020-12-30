@@ -299,10 +299,10 @@ else{
                 >
                 <ProviderName >
                   <HourText selected={placa === item.placa}>
-                  Carro: {item.marca}{"\n"}
-                  Placa: {item.placa}{"\n"}
-                  Data Inicio: {inicio} {"\n"}
-                  Data Fim: {final} {"\n"}
+                  Carro: {item.marca}{" "}
+                  de Placa: {item.placa}{"\n"}
+                  Datas Disponiveis de dia: {inicio} {"\n"}
+                  até dia: {final} {"\n"}
                   Aulas Disponíveis: {item.qtdAulasDisponiveis}
                   </HourText>
                 </ProviderName>
@@ -330,7 +330,8 @@ else{
               minimumDate={new  Date ( dataMin) }
               maximumDate={new  Date ( dataMax) }
               value={new Date(selectedDate)}
-              locale='pt-br'
+              is24Hour={true}
+              timeZoneOffsetInMinutes={180}
             />
           )}
         </Calendar1>
@@ -352,8 +353,8 @@ else{
                   <HourText selected={dataHora === item.inicioAula}>
                     Veiculo: {item.marca}{' '} Placa: {item.placa}{"\n"}
                     Data: {dateFormatted } {"\n"}
-                    Inicio Aula: { format(new Date(item.inicioAula),'hh:mm:ss')}{' '}
-                    Fim Aula: { format(new Date(item.fimAula),'hh:mm:ss')}
+                    Horário da Aula de: { format(new Date(item.inicioAula),'hh:mm:ss')}{' '}
+                    até { format(new Date(item.fimAula),'hh:mm:ss')}
                   </HourText>
                 </ProviderName>
                 : <Text></Text>

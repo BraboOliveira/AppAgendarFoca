@@ -1,19 +1,85 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react'
 import { View, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { useAuth } from '../../hooks/auth'
 
- import { Container, Title , BackButton} from './styles';
+ import { 
+   Container,
+    Title , 
+    BackButton,
+    Header,
+    HeaderTitle,
+    UserAvatar,
+    Section,
+    ProvidersList,
+    ProvidersListContainer,
+    Content,
+    Hour1,
+    ProviderName,
+    HourText,
+  } from './styles';
 
 const Profile: React.FC = () => {
   const { Nome , Cpf, Token, signOut} = useAuth()
-  const { navigate } = useNavigation()
+  const { goBack, navigate } = useNavigation()
+
+  const navigateBack = useCallback(() => {
+    goBack()
+  }, [goBack])
+
+  const botoes = [
+    { title: 'Aulas Agendadas', value: '1' },
+    { title: 'Alterar Senha', value: '2' },
+    { title: 'Falar com o Suporte', value: '3' },
+    { title: 'Falar com o Suporte', value: '4' },
+    { title: 'Falar com o Suporte', value: '5' },
+    { title: 'Falar com o Suporte', value: '6' },
+  ];
+
   return (
     <Container>
+            <Header>
+        <BackButton onPress={navigateBack}>
+          <Icon name="chevron-left" size={24} color="#999591" />
+        </BackButton>
+
+        <HeaderTitle>Perfil do Usuário: {'\n'}{Nome}</HeaderTitle> 
+
+        <UserAvatar
+          source={{
+            uri:
+              Nome.avatar_url ||
+              'https://api.adorable.io/avatars/56/abott@adorable.png',
+          }}
+        />
+      </Header>
       <Title>
-        Perfil do Usuário
-        Outras informações do perfil...
+        Aqui você pode consultar aulas agendadas, desagendar aulas, alterar senha...
       </Title>
+      <Content>
+      <ProvidersList
+              showsHorizontalScrollIndicator={true}
+              data={botoes}
+              keyExtractor={(item,index) => index.toString()}
+              renderItem={({item})=>{
+            return(   
+              <Section> 
+                <Hour1 
+                  onPress={() => {}}
+                >
+                <ProviderName >
+                <HourText >
+                  {item.title}
+                </HourText>
+                </ProviderName>
+      
+                </Hour1>
+               </Section>  
+                    )
+                }}
+              />
+      </Content>
       <BackButton onPress={signOut}>
         <Title>
           Sair
