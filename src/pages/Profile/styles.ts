@@ -25,15 +25,45 @@ export const Container = styled.View`
   flex: 1;
 `
 
+export const ContainerModal = styled.View`
+  background: #fff;
+  opacity: ${props => (props.available ? 1 : 0.9)};
+  height: 80%;
+  width: 80%;
+  borderRadius: 10;
+  align-items: center;
+  border: 1px;
+`
+export const ContainerModalF = styled.View`
+  align-items: center;
+  justify-Content: center;
+`
+
 export const Title = styled.Text`
   font-size: 20px;
   color: ${props => props.theme.colors.text};
   font-family: 'RobotoSlab-Medium';
   margin: 24px 24px 24px 24px;
 `
-
+export const TextModal = styled.Text`
+  font-size: 18px;
+  color: #000;
+  font-family: 'RobotoSlab-Medium';
+  margin: 24px 24px 24px 24px;
+`
+export const TextButtonModal = styled.Text`
+  font-size: 18px;
+  color: #fff;
+  font-family: 'RobotoSlab-Medium';
+  margin: 5px 30px 5px 30px;
+`
 export const BackButton = styled.TouchableOpacity`
   margin-top: 0px;
+`
+export const ModalButton = styled.TouchableOpacity`
+  margin-top: 0px;
+  background: red;
+  borderRadius: 25;
 `
 
 export const UserAvatarButton = styled.TouchableOpacity`
