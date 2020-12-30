@@ -118,7 +118,6 @@ const Profile: React.FC = () => {
             </ContainerModal>
           </ContainerModalF>
       </Modal>
-    
       
     </Container>
   );

@@ -28,16 +28,18 @@ export const Container = styled.View`
 export const ContainerModal = styled.View`
   background: #fff;
   opacity: ${props => (props.available ? 1 : 0.9)};
-  height: 80%;
-  width: 80%;
-  borderRadius: 10;
+  width: 90%;
+  borderRadius: 15px;
   align-items: center;
   border: 1px;
 `
 export const ContainerModalF = styled.View`
   align-items: center;
   justify-Content: center;
+  margin: 20px;
+  padding-top: 35%;
 `
+
 
 export const Title = styled.Text`
   font-size: 20px;
@@ -61,9 +63,10 @@ export const BackButton = styled.TouchableOpacity`
   margin-top: 0px;
 `
 export const ModalButton = styled.TouchableOpacity`
-  margin-top: 0px;
+  margin-top: 40px;
   background: red;
-  borderRadius: 25;
+  borderRadius: 15px;
+  margin: 20px;
 `
 
 export const UserAvatarButton = styled.TouchableOpacity`
