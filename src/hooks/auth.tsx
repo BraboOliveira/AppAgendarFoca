@@ -58,7 +58,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [codFilial, setCodFilial] = useState('')
   const [categoria, setCategoria] = useState('')
-  const [qtdAula, setQtdaula] = useState(2)
+  const [qtdAula, setQtdaula] = useState('2')
   const [filial, setFilial] = useState([])
   const [Cpf, setCpf] =useState('')
   const [Token, setToken] = useState('')
@@ -147,7 +147,25 @@ const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ Nome: data.Nome, nome, Cpf, Token, loading, signIn, signOut, updateUser , codFilial, setCodFilial, categoria, setCategoria, qtdAula, setQtdaula, filial, setFilial, nomeFilial, setNomeFilial}}
+      value={{ 
+        Nome: data.Nome,
+        nome,
+        Cpf,
+        Token,
+        loading,
+        signIn,
+        signOut,
+        updateUser,
+        codFilial,
+        setCodFilial,
+        categoria,
+        setCategoria,
+        qtdAula,
+        setQtdaula,
+        filial,
+        setFilial,
+        nomeFilial,
+        setNomeFilial}}
     >
       {children}
     </AuthContext.Provider>

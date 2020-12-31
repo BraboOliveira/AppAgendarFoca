@@ -268,7 +268,8 @@ else{
             return(   
               <Section> 
                 <Hour1 
-                  onPress={() =>setQtdaula(item.value)}
+                  // onPress={() =>setQtdaula(item.value)}
+                  onPress={() =>Alert.alert("Disponível Apenas de Duas Aulas Sequenciais")}
                   selected={qtdAula === item.value}
                 >
                 <ProviderName >

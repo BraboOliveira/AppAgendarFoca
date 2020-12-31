@@ -34,8 +34,12 @@ const Profile: React.FC = () => {
     goBack()
   }, [goBack])
 
+  const navigateAgendadas = useCallback((value: string) => {
+    navigate(value)
+  }, [navigate])
+
   const botoes = [
-    { title: 'Aulas Agendadas', value: '1' },
+    { title: 'Aulas Agendadas', value: 'Agendadas' },
     { title: 'Alterar Senha', value: '2' },
     { title: 'Falar com o Suporte', value: '3' },
     { title: 'Falar com o Suporte', value: '4' },
@@ -73,7 +77,7 @@ const Profile: React.FC = () => {
             return(   
               <Section> 
                 <Hour1 
-                  onPress={() => {setModalVisible(!modalVisible);}}
+                  onPress={() => {setModalVisible(!modalVisible); navigateAgendadas(item.value)}}
                 >
                 <ProviderName >
                 <HourText >
