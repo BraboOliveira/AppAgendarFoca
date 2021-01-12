@@ -12,7 +12,6 @@ export const Header = styled.View`
   align-items: center;
   padding-top: ${getStatusBarHeight() + 24}px;
   height: 130px;
-  borderRadius: 15px;
 `
 export const HeaderTitle = styled.Text`
   color: 5063eb#;

@@ -103,7 +103,7 @@ const Inicio: React.FC = () => {
                               opacity:  0.8,
                               backgroundColor:'#000',
                               borderRadius: 6,
-                              height: 150,
+                              height: 180,
                               padding: 20,
                               marginLeft: 1,
                               marginRight: 1,
