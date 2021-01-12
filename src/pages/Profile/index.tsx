@@ -23,6 +23,8 @@ import { useAuth } from '../../hooks/auth'
     TextModal,
     TextButtonModal,
     ModalButton,
+    ButtonBusca,
+    ButtonBuscaText,
   } from './styles';
 
 const Profile: React.FC = () => {
@@ -42,9 +44,6 @@ const Profile: React.FC = () => {
     { title: 'Aulas Agendadas', value: 'Agendadas' },
     { title: 'Alterar Senha', value: '2' },
     { title: 'Falar com o Suporte', value: '3' },
-    { title: 'Falar com o Suporte', value: '4' },
-    { title: 'Falar com o Suporte', value: '5' },
-    { title: 'Falar com o Suporte', value: '6' },
   ];
 
   return (
@@ -69,6 +68,9 @@ const Profile: React.FC = () => {
       </Title>
       
       <Content>
+      {/* <ButtonBusca>
+        <ButtonBuscaText>Teste</ButtonBuscaText>
+      </ButtonBusca> */}
       <ProvidersList
               showsHorizontalScrollIndicator={true}
               data={botoes}

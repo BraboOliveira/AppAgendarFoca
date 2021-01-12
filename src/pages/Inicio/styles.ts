@@ -6,14 +6,16 @@ import { RectButton } from 'react-native-gesture-handler'
 import { Provider } from './index'
 
 export const Header = styled.View`
-  background: #28262e;
+  background: #000;
+  opacity: ${props => (props.available ? 1 : 0.5)};
   flex-direction: row;
   align-items: center;
   padding-top: ${getStatusBarHeight() + 24}px;
   height: 130px;
+  borderRadius: 15px;
 `
 export const HeaderTitle = styled.Text`
-  color: #f5ede8;
+  color: 5063eb#;
   font-family: 'RobotoSlab-Medium';
   font-size: 20px;
   margin-left: 16px;
@@ -21,6 +23,7 @@ export const HeaderTitle = styled.Text`
 
 export const Container = styled.View`
   background: ${props => props.theme.colors.background};
+  background: #fff;
   position: relative;
   flex: 1;
 `
@@ -44,6 +47,7 @@ export const ContainerModalF = styled.View`
 export const Title = styled.Text`
   font-size: 20px;
   color: ${props => props.theme.colors.text};
+  color:#000;
   font-family: 'RobotoSlab-Medium';
   margin: 24px 24px 24px 24px;
 `
@@ -81,7 +85,8 @@ export const UserAvatar = styled.Image`
 `
 
 export const ProvidersList = styled(FlatList as new () => FlatList<Provider>)`
-  padding: 32px 24px 16px;
+  padding: 5px 5px 10px 15px;
+  padding-top: 10%;
 `
 
 export const ProvidersListTitle = styled.Text`
@@ -98,20 +103,28 @@ export const ProvidersListContainer = styled.View`
   border-radius: 10px;
 `
 export const Content = styled.SafeAreaView`
+justify-content: center;
+align-items: center;
+justify-content: center;
+padding-top: 5%;
 `
-export const Content1 = styled.SafeAreaView`
+export const Content1 = styled.View`
+flex-direction: row;
+`
+export const Scroll = styled.ScrollView`
 margin:3px;
 `
 export const Section = styled.View`
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 `
 export const Hour1 = styled(RectButton)<HourProps>`
   padding: 8px;
-  background: ${props => (props.selected ? '#ff9000' : '#3e3b47')};
+  background: ${props => (props.selected ? '#ff9000' : '#000')};
   border-radius: 5px;
   margin-right: 8px;
-  border: 1px
   opacity: ${props => (props.available ? 1 : 0.7)};
+  height: 150px;
+  width: 150px;
 `
 export const HourText = styled.Text<HourTextProps>`
   color: ${props => (props.selected ? '#000' : '#fff')};
@@ -138,4 +151,10 @@ export const ButtonBuscaText = styled.Text`
   font-family: 'RobotoSlab-Medium';
   font-size: 18px;
   color: #232129;
+`
+export const TextBanner = styled.Text`
+  font-family: 'RobotoSlab-Medium';
+  font-size: 24px;
+  color: #ffeb3b;
+  text-shadow: 0px 0px 15px #000;
 `

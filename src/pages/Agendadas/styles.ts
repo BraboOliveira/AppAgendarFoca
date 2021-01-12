@@ -41,7 +41,7 @@ export const UserAvatar = styled.Image`
 `
 
 export const ProvidersList = styled(FlatList as new () => FlatList<Provider>)`
-  padding: 32px 24px 16px;
+  padding: 12px 24px 16px;
 `
 
 export const ProvidersListTitle = styled.Text`
@@ -82,9 +82,33 @@ export const ProviderMeta = styled.View`
   align-items: center;
   margin-top: 8px;
 `
+export const ContainerList = styled.View`
+  border-radius: 10px;
+  border: 1px;
+  background: #000;
+  margin: 10px;
+  width: 80%;
+  height: 72px;
+
+`
 
 export const ProviderMetaText = styled.Text`
   margin-left: 8px;
   color: #999591;
   font-family: 'RobotoSlab-Regular';
+`
+
+export const ButtonBuscaAgendadas = styled(RectButton)`
+  height: 50px;
+  background: #ff9000;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 16px 24px 5px;
+`
+
+export const ButtonBuscaTextAgendadas = styled.Text`
+  font-family: 'RobotoSlab-Medium';
+  font-size: 18px;
+  color: #232129;
 `

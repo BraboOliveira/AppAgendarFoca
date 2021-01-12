@@ -54,7 +54,7 @@ const TiposDeAula: React.FC = () => {
   }
   catch(e){
     console.log(e)
-    //signOut()
+    signOut()
     }
   }
     loadAulas();
