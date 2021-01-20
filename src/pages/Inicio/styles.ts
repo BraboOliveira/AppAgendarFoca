@@ -6,12 +6,13 @@ import { RectButton } from 'react-native-gesture-handler'
 import { Provider } from './index'
 
 export const Header = styled.View`
-  background: #000;
-  opacity: ${props => (props.available ? 1 : 0.5)};
   flex-direction: row;
   align-items: center;
   padding-top: ${getStatusBarHeight() + 24}px;
-  height: 130px;
+  height: 100px;
+  padding-bottom: 10px;
+  align-items: center;
+  justify-content: center;
 `
 export const HeaderTitle = styled.Text`
   color: 5063eb#;
@@ -22,9 +23,10 @@ export const HeaderTitle = styled.Text`
 
 export const Container = styled.View`
   background: ${props => props.theme.colors.background};
-  background: #fff;
   position: relative;
-  flex: 1;
+  flex:1;
+  justify-content: center;
+  align-items: center;
 `
 
 export const ContainerModal = styled.View`
@@ -85,7 +87,7 @@ export const UserAvatar = styled.Image`
 
 export const ProvidersList = styled(FlatList as new () => FlatList<Provider>)`
   padding: 5px 5px 10px 15px;
-  padding-top: 10%;
+  padding-top: 5%;
 `
 
 export const ProvidersListTitle = styled.Text`
@@ -102,34 +104,33 @@ export const ProvidersListContainer = styled.View`
   border-radius: 10px;
 `
 export const Content = styled.SafeAreaView`
-justify-content: center;
-align-items: center;
-justify-content: center;
 padding-top: 5%;
 `
 export const Content1 = styled.View`
+justify-content: center;
+align-items: center;
+`
+export const Content2 = styled.View`
 flex-direction: row;
+padding-left: 30%;
 `
 export const Scroll = styled.ScrollView`
-margin:3px;
+margin:2px;
 `
 export const Section = styled.View`
   margin-bottom: 5px;
+  border-color: #3902D8;
 `
 export const Hour1 = styled(RectButton)<HourProps>`
   padding: 8px;
-  background: ${props => (props.selected ? '#ff9000' : '#000')};
-  border-radius: 5px;
+  background: ${props => (props.selected ? '#fff' : '#926DFA')};
+  border-radius: 10px;
   margin-right: 8px;
-  opacity: ${props => (props.available ? 1 : 0.7)};
+  opacity: ${props => (props.available ? 1 : 0.8)};
   height: 150px;
   width: 150px;
 `
-export const HourText = styled.Text<HourTextProps>`
-  color: ${props => (props.selected ? '#000' : '#fff')};
-  font-family: 'RobotoSlab-Regular';
-  font-size: 18px;
-`
+
 export const ProviderName = styled.Text<ProviderNameProps>`
   margin-left: 8px;
   font-family: 'RobotoSlab-Medium';
@@ -156,4 +157,26 @@ export const TextBanner = styled.Text`
   font-size: 24px;
   color: #ffeb3b;
   text-shadow: 0px 0px 15px #000;
+`
+export const StyledFlatList = styled(FlatList)`
+flex: 1;
+`
+
+export const SlideBut = styled.View`
+  margin: 3px;
+`;
+export const Button2 = styled.TouchableOpacity`
+  background-color: ${props => (props.selected ? '#D52301' : '#91817E')};
+  border-radius: 50px;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  height: 5px;
+  width: 5px;
+`;
+export const Pontos = styled.SafeAreaView`
+padding-top: 10px;
+`
+export const HourText = styled.Text<HourTextProps>`
+  color: ${props => (props.selected ? '#000' : '#fff')};
 `

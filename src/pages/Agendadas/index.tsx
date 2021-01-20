@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
- import { Text, View, ActivityIndicator } from 'react-native'
+ import { Text, View, ActivityIndicator, Alert } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
 import api from '../../services/api'
@@ -27,6 +27,10 @@ import {
   ButtonBuscaAgendadas,
   ButtonBuscaTextAgendadas,
   ContainerList,
+  Delete,
+  DeleteStyle,
+  ButtonDelete,
+  ProviderInfo2,
 } from './styles'
 
 export interface Provider {
@@ -46,6 +50,7 @@ const Agendadas: React.FC = () => {
 
   const buscarAgendadas = useCallback(async () => {
     try{
+      console.log(categoria)
     const aulasA = await api.post('/WSAgendamento/AulasPraticasAgendadas',null, { params:{
       // cpf: Cpf,
       // token: Token,
@@ -54,14 +59,16 @@ const Agendadas: React.FC = () => {
       cpf: Cpf,
       token: Token,
       codFilial: '10',
-      categoria: 'B',
+      categoria: categoria,
     }})
        setAgendadas(aulasA.data)
        console.log(...aulasA.data)
   }catch(e){
     console.log(e.response.data)
+    setAgendadas('')
+    Alert.alert('Não existe aulas agendadas para categoria selecionada!')
     }
-},[agendadas])
+},[categoria])
 
 const navigateBack = useCallback(() => {
   goBack()
@@ -88,8 +95,8 @@ const navigateBack = useCallback(() => {
       <ContainerList>
       <Picker
         selectedValue={categoria}
-        style={{height: 50, width: 200,color: "white",margin: 24}}
-        onValueChange={(valor) =>{ setCategoria(valor)}
+        style={{height: 20, width: '100%',color: "white",margin: 3}}
+        onValueChange={(itemvalue,index) =>{ setCategoria(itemvalue)}
       }>
         <Picker.Item label="Categoria A" value="A" />
         <Picker.Item label="Categoria B" value="B" />
@@ -121,7 +128,10 @@ const navigateBack = useCallback(() => {
             /> */}
 
             <ProviderInfo>
-              <ProviderName>Unidade: {nomeFilial}</ProviderName>
+                <ProviderInfo2>
+                <ProviderName>
+                  Unidade: {nomeFilial}
+                </ProviderName>
               <ProviderMeta>
                 <Icon name="calendar" size={14} color="#ff9000" />
                 <ProviderMetaText>Data: {format(new Date([item.AulaDataHora]),'dd/MM/yyyy')}</ProviderMetaText>
@@ -138,6 +148,10 @@ const navigateBack = useCallback(() => {
                 <Icon name="truck" size={14} color="#ff9000" />
                 <ProviderMetaText>Veículo: {item.VeiculoMarca} de Placa: {item.VeiculoModelo}</ProviderMetaText>
               </ProviderMeta>
+              </ProviderInfo2>
+              <ButtonDelete onPress={()=>{console.log('deletar'), Alert.alert('Você realmentte deseja excluir esta aula?')}}>
+                  <Icon name="delete" size={28} color="#A92727" />
+                </ButtonDelete>
             </ProviderInfo>
           </ProviderContainer>
         )}

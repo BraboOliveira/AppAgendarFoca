@@ -42,6 +42,8 @@ export const UserAvatar = styled.Image`
 
 export const ProvidersList = styled(FlatList as new () => FlatList<Provider>)`
   padding: 12px 24px 16px;
+  border:1px;
+  border-color:#333;
 `
 
 export const ProvidersListTitle = styled.Text`
@@ -67,10 +69,13 @@ export const ProviderAvatar = styled.Image`
 `
 
 export const ProviderInfo = styled.View`
+flex-direction: row;
+  margin-left: 20px;
+`
+export const ProviderInfo2 = styled.View`
   flex: 1;
   margin-left: 20px;
 `
-
 export const ProviderName = styled.Text`
   font-family: 'RobotoSlab-Medium';
   font-size: 18px;
@@ -82,13 +87,13 @@ export const ProviderMeta = styled.View`
   align-items: center;
   margin-top: 8px;
 `
+
 export const ContainerList = styled.View`
-  border-radius: 10px;
   border: 1px;
-  background: #000;
-  margin: 10px;
-  width: 80%;
-  height: 72px;
+  border-color:#333;
+  background: #53505B;
+  width: 100%;
+  height: 30px;
 
 `
 
@@ -111,4 +116,14 @@ export const ButtonBuscaTextAgendadas = styled.Text`
   font-family: 'RobotoSlab-Medium';
   font-size: 18px;
   color: #232129;
+`
+export const Delete = styled.View`
+  flex-direction: row;
+  margin-top: 8px;
+`
+export const DeleteStyle = styled.View`
+  margin-top: 8px;
+`
+export const ButtonDelete = styled(RectButton)`
+margin: 2px;
 `
