@@ -47,7 +47,7 @@ export const ProvidersList = styled(FlatList as new () => FlatList<Provider>)`
 export const ProvidersListTitle = styled.Text`
   font-size: 24px;
   margin-bottom: 24px;
-  color: #f4ede8;
+  color: ${props => props.theme.colors.text};
   font-family: 'RobotoSlab-Medium';
 `
 

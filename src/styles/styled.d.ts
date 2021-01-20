@@ -9,7 +9,6 @@ declare module 'styled-components' {
     colors: {
       primary: string
       secundary: string
-
       background: string
       li: string
       text: string

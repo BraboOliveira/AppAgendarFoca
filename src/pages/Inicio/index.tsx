@@ -45,7 +45,7 @@ const Inicio: React.FC = () => {
   const [ativo, setAtivo] = useState(0);
 
   const slides = [
-    { title: 'Agende Suas Aulas Pelo Aplicativo', num : 0, value: 'Dashboard' ,uri: 'https://img.ibxk.com.br/2020/01/30/30021141299110.jpg?w=1120&h=420&mode=crop&scale=both'},
+    { title: 'Agende Suas Aulas Pelo Aplicativo', num : 0, value: 'Dashboard' ,uri: 'https://originalvw.com.br/wp-content/uploads/2020/02/Polo_Auto_Escola_750x320_c_cone.png'},
     { title: 'Alterar Senha', value: '2', num : 1, uri: 'https://www.autoescolaonline.net/wp-content/uploads/2018/09/post-trocar-autoescola.jpg'},
     { title: 'Falar com o Suporte', num : 2, value: '3' , uri: 'https://automotoescolacarlao.com.br/wp-content/uploads/2017/02/placas.png'},
     { title: 'Falar com o Suporte', num : 3, value: '3', uri: 'https://autoescolaneon.com.br/wp-content/uploads/2016/10/cnh.png' },
@@ -64,9 +64,9 @@ const Inicio: React.FC = () => {
 
   const botoes = [
     { title: 'Agendar Aula', value: 'Routes', num : 0},
-    { title: 'A Empresa', value: '2',  num : 1},
-    { title: 'Simulado', value: '3' , num : 2},
-    { title: 'Categorias', value: '3', num : 3},
+    { title: 'A Empresa', value: '',  num : 1},
+    { title: 'Simulado', value: '' , num : 2},
+    { title: 'Categorias', value: '', num : 3},
     // { title: '...', value: 'Agendadas', num : 4},
     // { title: '...', value: '2' , num : 5},
     // { title: 'Falar com o Suporte', value: '3'},
@@ -102,7 +102,7 @@ const Inicio: React.FC = () => {
                   //ref={ref => carousel = ref}
                   data={slides}
                   sliderWidth={windowWidth}
-                  itemWidth={windowWidth-70}
+                  itemWidth={windowWidth-50}
                   renderItem={({item})=>{
                     return (
                           <ImageBackground
@@ -112,10 +112,8 @@ const Inicio: React.FC = () => {
                               opacity:  0.8,
                               backgroundColor:'#000',
                               borderRadius: 6,
-                              height: 150,
-                              padding: 20,
-                              marginLeft: 1,
-                              marginRight: 1,
+                              height: 160,
+                              padding: 10,
                                }}>
                             <TextBanner>{item.title}</TextBanner>
                             {/* <TextBanner>{item.value}</TextBanner> */}
@@ -149,6 +147,31 @@ const Inicio: React.FC = () => {
               </Pontos>
               </View>
         </Content>
+        <Content2>    
+      <ProvidersList
+              data={botoes}
+              keyExtractor={(item,index) => index.toString()}
+              horizontal= {true}
+              renderItem={({item})=>{
+            return(   
+              <Section> 
+                <Hour1 
+                  onPress={() => {setModalVisible(!modalVisible); navigateAgendadas(item.value)}}
+                >
+          <UserAvatar
+            source={{
+              uri: 'https://autoescolakaique.com.br/site/img/icone-auto-escola.png',
+            }}
+          />
+                <HourText >
+                  {item.title}
+                </HourText>
+                </Hour1>
+               </Section>  
+                    )
+                }}
+              />
+      </Content2>
         <Content1>    
       <ProvidersList
               data={botoes}

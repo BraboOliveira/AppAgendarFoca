@@ -79,8 +79,8 @@ export const UserAvatarButton = styled.TouchableOpacity`
 `
 
 export const UserAvatar = styled.Image`
-  width: 186px;
-  height: 186px;
+  width: 70px;
+  height: 70px;
   border-radius: 98px;
   align-self: center;
 `
@@ -112,7 +112,6 @@ align-items: center;
 `
 export const Content2 = styled.View`
 flex-direction: row;
-padding-left: 30%;
 `
 export const Scroll = styled.ScrollView`
 margin:2px;
@@ -123,12 +122,13 @@ export const Section = styled.View`
 `
 export const Hour1 = styled(RectButton)<HourProps>`
   padding: 8px;
-  background: ${props => (props.selected ? '#fff' : '#926DFA')};
+  background: ${props => (props.selected ? '#fff' : '#222')};
   border-radius: 10px;
   margin-right: 8px;
   opacity: ${props => (props.available ? 1 : 0.8)};
   height: 150px;
   width: 150px;
+  align-items: center;
 `
 
 export const ProviderName = styled.Text<ProviderNameProps>`

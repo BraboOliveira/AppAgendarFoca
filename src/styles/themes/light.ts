@@ -5,11 +5,11 @@ export default {
   logo: logoL,
 
   colors: {
-    primary: '#FFFFFF',
+    primary: '#7B7A7F',
     secundary: '#0d0d0d',
 
     background: '#E5E5E5',
-    li: '#ffff',
+    li: '#666',
     text: '#0d0d0d',
     inputColor: '#333',
     inputPlaceholder: '#000000',

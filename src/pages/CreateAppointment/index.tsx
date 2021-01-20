@@ -104,6 +104,7 @@ useEffect(()=>{
        console.log(...aulas.data)
   }catch(e){
     console.log(e.response.data)
+    Alert.alert("Não há aulas disponiveis para o parâmetro ")
     }
   }
   aulasDisponiveis()
@@ -137,6 +138,7 @@ useEffect(()=>{
 
     }catch(e){
       console.log(e.response.data)
+      Alert.alert("Não há aulas disponiveis para o parâmetro solicitado, por favor entre em contato com a administração ")
     }
     }
     QtdAulas()

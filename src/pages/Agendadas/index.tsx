@@ -149,7 +149,7 @@ const navigateBack = useCallback(() => {
                 <ProviderMetaText>Veículo: {item.VeiculoMarca} de Placa: {item.VeiculoModelo}</ProviderMetaText>
               </ProviderMeta>
               </ProviderInfo2>
-              <ButtonDelete onPress={()=>{console.log('deletar'), Alert.alert('Você realmentte deseja excluir esta aula?')}}>
+              <ButtonDelete onPress={()=>{console.log('deletar'), Alert.alert('Você realmente deseja excluir esta aula?')}}>
                   <Icon name="delete" size={28} color="#A92727" />
                 </ButtonDelete>
             </ProviderInfo>
